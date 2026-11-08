@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fff4dc">
+  <title>La Taqueria Del Beso · Tacos messicani a Torino</title>
+  <meta name="description" content="Tacos di mais, antojitos e sapori messicani. Scopri il menu con i prezzi di La Taqueria Del Beso in Piazza Madama Cristina 3/A, San Salvario, Torino.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:title" content="La Taqueria Del Beso · Un beso. Mucho sabor.">
+  <meta property="og:description" content="Tacos messicani, lime e salse. Piazza Madama Cristina 3/A, Torino.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/siti-web-torino/la-taqueria-del-beso/main/dist/assets/tacos-trio.jpg">
+  <link rel="icon" href="assets/logo-hd.jpg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>if(window.tailwind)window.tailwind.config={corePlugins:{preflight:false}};</script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --paper:#fff4dc; --light:#fffbf1; --sand:#f1e1c2; --ink:#211712;
+      --red:#bc2332; --burgundy:#791b24; --corn:#ffd347; --lime:#dbe991;
+      --green:#34442b; --muted:#625247; --line:#bca98f;
+      --display:'Barlow Condensed','Arial Narrow',Impact,sans-serif;
+      --body:'Space Grotesk',Arial,sans-serif; --edge:2px solid var(--ink);
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+    body:has(dialog[open]){overflow:hidden}
+    img{display:block;max-width:100%;height:auto}
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    button{color:inherit;cursor:pointer}
+    p,h1,h2,h3,h4,figure,dl,dd{margin:0}
+    [hidden]{display:none!important}
+    a:focus-visible,button:focus-visible,input:focus-visible+span,[tabindex]:focus-visible{outline:3px solid #345691;outline-offset:4px}
+    ::selection{background:var(--corn);color:var(--ink)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .skip{position:fixed;z-index:200;top:9px;left:9px;padding:12px 20px;background:var(--ink);color:var(--light);transform:translateY(-150%)}
+    .skip:focus{transform:none}
+    .wrap{width:min(1200px,calc(100% - 36px));margin-inline:auto}
+    .slice{padding-block:70px}
+    .kicker{display:flex;align-items:center;gap:9px;text-transform:uppercase;font-size:10px;font-weight:700;letter-spacing:.15em}
+    .spark{width:18px;height:18px;color:var(--red);fill:currentColor;flex:none}
+    .icon{width:18px;height:18px;flex:none;stroke-width:1.8}
+    .mini{font-size:10px;line-height:1.4;letter-spacing:.12em;font-weight:700;text-transform:uppercase}
+    .display{font-family:var(--display);font-weight:900;letter-spacing:-.025em;text-transform:uppercase;line-height:.85}
+    h2.display{font-size:clamp(51px,10vw,112px)}
+    .button{display:inline-flex;align-items:center;justify-content:center;gap:15px;min-height:49px;padding:11px 16px;border:var(--edge);background:var(--corn);color:var(--ink);font-size:12px;font-weight:700;line-height:1.22;box-shadow:3px 3px 0 var(--ink);transition:background .2s,box-shadow .2s,translate .2s;text-align:left}
+    .button:hover{background:var(--lime);translate:-1px -2px;box-shadow:4px 5px 0 var(--ink)}
+    .button.alt{background:var(--light)}
+    .button.alt:hover{background:var(--corn)}
+    .button.red{background:var(--red);color:white}
+    .button.red:hover{background:var(--burgundy)}
+    .text-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;line-height:1.4;text-decoration:underline;text-underline-offset:5px}
+    .text-link:hover{color:var(--red)}
+    .nav{position:fixed;z-index:70;top:10px;left:10px;right:10px;max-width:1280px;margin-inline:auto;min-height:60px;padding:7px 12px;display:flex;justify-content:space-between;align-items:center;gap:12px;border:var(--edge);background:rgba(255,249,234,.94);backdrop-filter:blur(15px);box-shadow:3px 3px var(--ink);transition:top .22s,min-height .22s,padding .22s}
+    .nav.compact{top:6px;min-height:55px;padding-block:4px}
+    .brand{display:flex;align-items:center;gap:9px;min-width:0}
+    .brand img{width:43px;height:43px;flex:none;border-radius:50%;background:white}
+    .brand-text{font:900 18px/.9 var(--display);letter-spacing:.01em;text-transform:uppercase;white-space:nowrap}
+    .brand-text small{display:block;font:700 8px/1.1 var(--body);letter-spacing:.17em;margin-top:5px;color:var(--burgundy)}
+    .desktop-nav{display:none;align-items:center;gap:26px;font-size:11px;font-weight:700}
+    .desktop-nav>a:not(.button):hover{color:var(--red)}
+    .desktop-nav .button{min-height:38px;padding:7px 12px;box-shadow:2px 2px var(--ink)}
+    .nav-toggle{display:flex;align-items:center;gap:7px;border:0;background:transparent;font-size:11px;font-weight:700;padding:10px 0 10px 8px}
+    .nav-toggle .icon{width:20px;height:20px}
+    .mobile-nav{position:fixed;z-index:69;top:78px;left:10px;right:10px;padding:14px 16px 18px;display:grid;gap:6px;background:var(--light);border:var(--edge);box-shadow:3px 3px var(--ink)}
+    .mobile-nav>a:not(.button){padding:10px 4px;font-weight:700;border-bottom:1px solid var(--line)}
+    .mobile-nav .button{margin-top:7px;justify-self:start}
+    .hero{overflow:hidden;padding:104px 0 38px;background-color:var(--paper);background-image:radial-gradient(#7b411e17 .7px,transparent .9px);background-size:8px 8px}
+    .hero-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:26px;color:var(--burgundy);font-size:9px}
+    .hero-meta>span:last-child{white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+    .hero-meta .spark{width:14px;height:14px}
+    .hero-grid{display:grid;gap:34px;align-items:center}
+    .hero-copy{position:relative}
+    .hero .kicker{color:var(--burgundy);margin-bottom:15px}
+    .hero h1{font-size:clamp(76px,17vw,120px);line-height:.81}
+    .hero-line{display:block;padding-bottom:.055em}
+    .hero-line.punch{color:var(--red)}
+    .hero h1 .dot{color:var(--red)}
+    .hero-copy>p{max-width:345px;margin-top:20px;font-size:14px;line-height:1.7}
+    .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:13px;margin-top:24px}
+    .hero-actions .button{font-size:11px;gap:8px;padding-inline:11px}
+    .hero-address{display:inline-flex;align-items:center;gap:7px;margin-top:20px;color:var(--burgundy);font-size:11px;font-weight:700}
+    .hero-address .icon{width:15px;height:15px}
+    .hero-frame{position:relative;margin:0 7px 0 3px;transform:rotate(2deg);padding:15px 12px 11px;background:var(--red);border:var(--edge);box-shadow:5px 5px var(--ink)}
+    .hero-frame::before{content:"";position:absolute;inset:3px 7px auto;height:8px;background:radial-gradient(circle,var(--paper) 2.4px,transparent 3px) 0 0/22px 8px repeat-x;pointer-events:none}
+    .hero-pic{position:relative;overflow:hidden;border:var(--edge);background:var(--burgundy);aspect-ratio:1/1.08}
+    .hero-pic img{width:100%;height:100%;object-fit:cover;object-position:center 55%}
+    .hero-frame figcaption{display:flex;justify-content:space-between;gap:8px;padding:9px 1px 0;color:var(--light);font-size:8px;font-weight:700;letter-spacing:.11em;text-transform:uppercase}
+    .sun-stamp{position:absolute;right:-14px;top:-14px;width:89px;aspect-ratio:1;z-index:2;display:grid;place-items:center;transform:rotate(10deg);background:var(--corn);border:var(--edge);border-radius:50%;box-shadow:2px 3px var(--ink)}
+    .sun-stamp>svg:first-child{position:absolute;inset:5%;width:90%;height:90%;animation:spin 25s linear infinite;overflow:visible}
+    .sun-stamp text{font:700 8.5px var(--body);letter-spacing:1.25px;fill:var(--ink)}
+    .sun-stamp>svg:last-child{width:31px;height:31px;color:var(--red);fill:currentColor}
+    .hero-bottom{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:33px;padding-top:13px;border-top:1px solid var(--line);color:var(--burgundy);font-size:9px}
+    .hero-bottom a{display:flex;align-items:center;gap:6px}
+    .hero-bottom .icon{width:14px;height:14px}
+    .ticker{overflow:hidden;position:relative;padding-block:19px 24px;background:var(--paper)}
+    .ribbon{display:flex;overflow:hidden;border-block:var(--edge);color:var(--light);background:var(--red);width:calc(100% + 36px);margin-left:-18px;transform:rotate(-1.8deg);padding-block:7px}
+    .ribbon+.ribbon{background:var(--corn);color:var(--ink);transform:rotate(1.4deg);margin-top:-2px;position:relative}
+    .ribbon-track{display:flex;flex:none;width:max-content;animation:crawl 42s linear infinite}
+    .ribbon+.ribbon .ribbon-track{animation-direction:reverse;animation-duration:37s}
+    .ribbon-group{display:flex;align-items:center;gap:17px;padding-right:17px;font:800 18px/1 var(--display);letter-spacing:.085em;text-transform:uppercase}
+    .ribbon-group b{font:700 16px/1 var(--body)}
+    .ticker:hover .ribbon-track,.ticker.is-paused .ribbon-track,.ticker:focus-within .ribbon-track{animation-play-state:paused}
+    .ticker-pause{position:absolute;z-index:2;bottom:0;right:12px;border:1px solid var(--ink);background:var(--light);font-size:9px;font-weight:700;padding:3px 7px}
+    @keyframes crawl{to{transform:translateX(-50%)}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .story{overflow:hidden;background:var(--light)}
+    .story-grid{display:grid;gap:33px;align-items:center}
+    .story .kicker{color:var(--red);margin-bottom:18px}
+    .story h2{margin-bottom:23px}
+    .story h2 span{color:var(--red)}
+    .story-copy p{max-width:480px;margin-bottom:14px;line-height:1.75;color:var(--muted)}
+    .story-copy .text-link{margin-top:9px}
+    .story-photos{position:relative;padding:0 45px 47px 5px}
+    .story-primary{border:var(--edge);background:var(--corn);padding:7px;box-shadow:4px 4px var(--ink);transform:rotate(-4deg)}
+    .story-primary .image-cut{aspect-ratio:1/1.04;overflow:hidden;background:var(--sand)}
+    .story-primary img{width:100%;height:100%;object-fit:cover;object-position:center 57%}
+    .story-primary figcaption{padding:7px 2px 1px}
+    .story-secondary{position:absolute;right:5px;bottom:8px;width:41%;padding:5px;background:var(--paper);border:var(--edge);transform:rotate(8deg);box-shadow:4px 4px var(--ink)}
+    .story-secondary img{aspect-ratio:1/1.12;width:100%;object-fit:cover;object-position:center 51%}
+    .story-stamp{position:absolute;top:-12px;right:3px;transform:rotate(9deg);background:var(--lime);border:var(--edge);padding:6px 10px;z-index:2;box-shadow:2px 2px var(--ink)}
+    .menu-section{background:var(--paper);border-block:var(--edge)}
+    .section-intro{display:grid;gap:16px;align-items:end;margin-bottom:24px}
+    .section-intro .kicker{color:var(--red);margin-bottom:14px}
+    .section-intro>p{color:var(--muted);max-width:320px;font-size:14px}
+    .menu-heading-mark{color:var(--red)}
+    .menu-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:var(--edge);box-shadow:3px 3px var(--ink);background:var(--light);margin-top:25px;margin-bottom:21px}
+    .menu-tabs button{min-width:0;min-height:54px;padding:8px 4px;background:transparent;border:0;font:800 clamp(16px,4vw,22px)/1 var(--display);letter-spacing:.015em;text-transform:uppercase;display:flex;justify-content:center;align-items:center;gap:9px}
+    .menu-tabs button+button{border-left:var(--edge)}
+    .menu-tabs button[aria-selected=true]{background:var(--corn)}
+    .menu-tabs button:hover{background:var(--lime)}
+    .menu-tabs button .icon{display:none}
+    .tab-panel{scroll-margin-top:92px}
+    .tab-panel+.tab-panel:not([hidden]){margin-top:32px}
+    .panel-heading{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:24px 0 14px;border-bottom:1px solid var(--line);padding-bottom:10px}
+    .panel-heading h3{font:800 31px/.95 var(--display);text-transform:uppercase}
+    .panel-heading p{font-size:10px;color:var(--muted);text-align:right}
+    .dish-grid{display:grid;gap:12px}
+    .dish{padding:16px 14px 13px;display:flex;flex-direction:column;gap:8px;background:var(--light);border:var(--edge);box-shadow:2px 2px var(--ink);min-width:0;transition:background .2s,transform .18s}
+    .dish:hover{background:#fff9e7}
+    .dish-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .dish h4{font:800 24px/.94 var(--display);letter-spacing:.012em;text-transform:uppercase}
+    .dish-place{display:block;font-size:10px;font-weight:600;color:var(--burgundy);margin-top:6px}
+    .dish-price{display:inline-block;flex:none;background:var(--corn);color:var(--ink);border:1px solid var(--ink);font:700 12px/1.15 var(--body);padding:4px 6px;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .dish p{font-size:12px;line-height:1.53;color:var(--muted)}
+    .dish-bottom{display:flex;align-items:center;justify-content:space-between;gap:5px;flex-wrap:wrap;margin-top:auto;padding-top:7px;border-top:1px solid #d9c9b2}
+    .dish-tag{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--burgundy)}
+    .picante{display:inline-flex;align-items:center;gap:3px;color:var(--red)}
+    .picante .flame{width:13px;height:14px;fill:currentColor}
+    .picante .flame.empty{color:#9c8978;fill:none;stroke:currentColor;stroke-width:1.25}
+    .list-box{border:var(--edge);padding:0 12px;background:var(--light);box-shadow:2px 2px var(--ink)}
+    .list-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:4px 10px;padding:11px 0;border-bottom:1px solid #dfd1bc}
+    .list-row:last-child{border-bottom:0}
+    .list-row dt{font-weight:700;font-size:14px}
+    .list-row dd{font-size:12px;font-weight:700;white-space:nowrap}
+    .list-row dd.list-description{grid-column:1/-1;font-size:11px;font-weight:400;line-height:1.5;color:var(--muted);white-space:normal}
+    .drink-grid{display:grid;gap:4px 20px}
+    .menu-notes{margin-top:23px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:11px;line-height:1.6;display:grid;gap:6px}
+    .michelada{position:relative;overflow:hidden;background:var(--corn);border:var(--edge);box-shadow:3px 3px var(--ink);padding:20px 16px;margin:16px 0 25px}
+    .michelada h3{font:900 39px/.9 var(--display);text-transform:uppercase;max-width:365px}
+    .michelada .kicker{margin-bottom:9px}
+    .michelada-copy p{font-size:12px;max-width:435px;margin-top:11px}
+    .michelada-form{margin-top:17px}
+    .michelada fieldset{border:0;margin:0;padding:0;min-width:0}
+    .michelada legend{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+    .heat-options{display:flex;gap:6px;flex-wrap:wrap}
+    .heat-options label{display:inline-flex;cursor:pointer}
+    .heat-options label span{display:inline-flex;align-items:center;min-height:42px;padding:7px 12px;background:var(--light);border:1.5px solid var(--ink);font-size:11px;font-weight:700}
+    .heat-options input:checked+span{background:var(--ink);color:var(--light)}
+    .mix-result{font-size:12px;font-weight:600;margin-top:9px;max-width:375px}
+    .michelada .lime-art{position:absolute;right:-42px;bottom:-42px;width:130px;height:130px;opacity:.2;pointer-events:none}
+    .michelada-photo{position:relative;z-index:1;margin-top:17px;border:var(--edge);background:var(--light);padding:4px;box-shadow:2px 2px var(--ink)}
+    .michelada-photo img{width:100%;height:clamp(150px,51vw,240px);object-fit:cover;object-position:center 28%}
+    .michelada-photo figcaption{padding:4px 4px 2px;color:var(--muted);font-size:9px;letter-spacing:.055em}
+    .bento-section{background:var(--lime)}
+    .bento{display:grid;gap:12px}
+    .bento-tile{border:var(--edge);background:var(--light);box-shadow:3px 3px var(--ink);min-width:0;padding:18px;position:relative;overflow:hidden;transition:transform .18s}
+    .bento-tile .icon{width:24px;height:24px;margin-bottom:14px;color:var(--red)}
+    .bento-tile h3{font:900 35px/.9 var(--display);text-transform:uppercase;margin-bottom:10px}
+    .bento-tile p{max-width:280px;color:var(--muted);font-size:12px}
+    .bento-tile .text-link{margin-top:13px}
+    .bento-tile .text-link .icon{width:15px;height:15px;margin:0;color:inherit}
+    .bento-tile.color{background:var(--corn)}
+    .bento-photo{padding:0;min-height:270px;display:flex;align-items:flex-end}
+    .bento-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 52%}
+    .bento-photo::after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(transparent,#1f100bf2)}
+    .bento-photo div{position:relative;z-index:1;color:white;padding:19px}
+    .bento-photo p{color:var(--light)}
+    .social{background:var(--red);color:white;border-block:var(--edge);overflow:hidden}
+    .social .section-intro .kicker,.social .section-intro>p{color:var(--light)}
+    .social .spark{color:var(--corn)}
+    .social h2 span{color:var(--corn)}
+    .social-links{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:25px}
+    .social-links .button{font-size:10px;gap:7px;min-height:43px;padding:9px 11px}
+    .social-links .icon{width:15px;height:15px}
+    .gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 10px;padding:3px 1px 4px}
+    .gallery-card{display:block;min-width:0;padding:5px;background:var(--light);border:var(--edge);box-shadow:3px 3px var(--ink);color:var(--ink);transition:translate .2s}
+    .gallery-card:hover{translate:0 -4px}
+    .gallery-card .image-cut{overflow:hidden;aspect-ratio:4/5;background:var(--sand)}
+    .gallery-card img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+    .gallery-card:hover img{transform:scale(1.055)}
+    .gallery-caption{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:6px 2px 2px;font:800 15px/1 var(--display);letter-spacing:.025em;text-transform:uppercase}
+    .gallery-caption .icon{width:12px;height:12px}
+    .visit{background:var(--ink);color:var(--light);padding-bottom:0;overflow:hidden}
+    .visit .kicker,.visit .spark{color:var(--corn)}
+    .visit-grid{display:grid;gap:33px}
+    .visit h2{margin:14px 0 21px}
+    .visit h2 span{color:var(--corn)}
+    .visit-copy p{max-width:400px;font-size:14px;color:#e7d3b7}
+    .visit .button{margin-top:18px;border-color:var(--paper);box-shadow:3px 3px var(--paper)}
+    .visit .button:hover{box-shadow:4px 4px var(--paper)}
+    .visit-detail{border-top:1px solid #7a685c;padding:17px 0}
+    .visit-detail .mini{color:var(--corn);display:flex;gap:8px;align-items:center;margin-bottom:8px}
+    .visit-detail .mini .icon{width:15px;height:15px}
+    .visit-detail address{font:800 29px/1 var(--display);text-transform:uppercase;font-style:normal}
+    .visit-detail address small{display:block;font:400 12px/1.4 var(--body);color:#e7d3b7;text-transform:none;margin-top:6px}
+    .hours{display:grid;gap:4px 11px;grid-template-columns:1fr auto;align-items:start;font-size:12px}
+    .hours dd{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .visit-detail .text-link{margin-top:3px;margin-right:13px}
+    .visit-detail .text-link:hover,.footer-end a:hover{color:var(--corn)}
+    .wordmark{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--corn);font:900 clamp(57px,17vw,200px)/.8 var(--display);letter-spacing:-.017em;text-transform:uppercase;padding-top:38px;white-space:nowrap}
+    .wordmark svg{width:16%;height:auto;flex:none;fill:var(--corn)}
+    .footer-end{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 20px;border-top:1px solid #7a685c;padding-block:15px 21px;margin-top:24px;color:#e7d3b7;font-size:10px}
+    .footer-end a{text-decoration:underline;text-underline-offset:3px}
+    .intro{display:none;position:fixed;z-index:150;inset:0;background:var(--red);color:var(--light);place-items:center;text-align:center;pointer-events:none}
+    .intro.active{display:grid;animation:intro-fail .5s ease 2.35s forwards}
+    .intro-mark{position:relative;width:clamp(145px,28vw,225px);margin:0 auto 22px}
+    .intro-mark img{width:100%;border-radius:50%;position:relative;z-index:1;border:3px solid var(--corn);animation:bump 1.4s ease-in-out infinite}
+    .intro-mark .ray{position:absolute;inset:-24%;width:148%;height:148%;color:var(--corn);fill:none;stroke:currentColor;stroke-width:1.5;animation:spin 18s linear infinite}
+    .intro strong{font:900 clamp(27px,7vw,45px)/.95 var(--display);text-transform:uppercase;letter-spacing:.02em}
+    .intro p{font-size:11px;margin-top:7px;letter-spacing:.12em}
+    @keyframes bump{50%{transform:scale(1.06)}}
+    @keyframes intro-fail{to{opacity:0;visibility:hidden}}
+    .cursor{position:fixed;left:0;top:0;z-index:90;pointer-events:none;display:none;align-items:center;justify-content:center;width:79px;height:79px;transform:translate(-50%,-50%);color:var(--ink);background:var(--corn);border:var(--edge);border-radius:50%;box-shadow:2px 2px var(--ink);font:900 17px/.9 var(--display);text-align:center;text-transform:uppercase}
+    .cursor.on{display:flex}
+    dialog{padding:8px;border:var(--edge);box-shadow:5px 5px var(--ink);background:var(--light);color:var(--ink);width:min(580px,calc(100% - 28px));max-height:89vh;max-height:89dvh;overflow:auto}
+    dialog::backdrop{background:#1f120be0}
+    .dialog-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 2px 8px}
+    .dialog-bar h2{font:800 25px/.93 var(--display);text-transform:uppercase}
+    .dialog-bar button,.dialog-nav button{border:var(--edge);background:var(--corn);min-width:42px;min-height:42px;display:grid;place-items:center;padding:6px}
+    dialog img{width:100%;max-height:64vh;max-height:64dvh;object-fit:contain;background:var(--sand)}
+    .dialog-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;font-size:11px;font-weight:700}
+    @media(min-width:540px){
+      .wrap{width:min(1200px,calc(100% - 58px))}
+      .hero-grid{gap:35px}
+      .hero h1{font-size:clamp(88px,14.7vw,120px)}
+      .hero-actions .button{padding-inline:15px;font-size:12px}
+      .hero-frame{margin-inline:8px 18px}
+      .hero-pic{aspect-ratio:1.2/1}
+      .sun-stamp{width:105px}
+      .dish-grid,.bento,.drink-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .bento-photo{grid-column:1/-1}
+      .gallery{gap:18px}
+      .gallery-caption{font-size:18px}
+    }
+    @media(min-width:800px){
+      html{scroll-padding-top:100px}
+      .wrap{width:min(1200px,calc(100% - 88px))}
+      .slice{padding-block:92px}
+      .nav{top:16px;left:24px;right:24px;min-height:72px;padding:9px 17px}
+      .nav.compact{top:8px;min-height:62px}
+      .brand img{width:48px;height:48px}
+      .brand-text{font-size:21px}
+      .desktop-nav{display:flex;gap:20px}
+      .nav-toggle,.mobile-nav{display:none!important}
+      .hero{padding-top:128px;padding-bottom:48px}
+      .hero-meta{margin-bottom:30px;font-size:10px}
+      .hero-grid{grid-template-columns:.94fr 1fr;gap:37px}
+      .hero h1{font-size:clamp(91px,10.4vw,152px)}
+      .hero-copy>p{margin-top:22px}
+      .hero-frame{margin:4px 8px 0 0;padding:17px 13px 13px}
+      .hero-pic{aspect-ratio:.91/1;max-height:600px}
+      .hero-frame figcaption{font-size:9px}
+      .sun-stamp{top:-23px;right:-19px;width:114px}
+      .sun-stamp>svg:last-child{width:37px;height:37px}
+      .ribbon-group{font-size:22px;gap:24px;padding-right:24px}
+      .ribbon{padding-block:9px}
+      .story-grid{grid-template-columns:.95fr 1fr;gap:58px}
+      .story-photos{padding:6px 50px 64px 9px}
+      .story-primary .image-cut{aspect-ratio:1.05/1}
+      .story-secondary{bottom:8px}
+      .section-intro{grid-template-columns:1fr auto;gap:35px}
+      .menu-tabs button{justify-content:flex-start;min-height:57px;padding:10px 16px}
+      .menu-tabs button .icon{display:inline-block}
+      .panel-heading h3{font-size:38px}
+      .dish-grid{gap:15px}
+      .dish{padding:17px 16px}
+      .dish h4{font-size:26px}
+      .dish p{font-size:13px}
+      .list-box{padding-inline:15px}
+      .michelada{display:grid;grid-template-columns:1.15fr 1fr;gap:14px 29px;align-items:center;padding:25px 20px}
+      .michelada-form{margin:0}
+      .michelada h3{font-size:46px}
+      .michelada-photo{grid-column:2;grid-row:1/3;margin-top:0}
+      .michelada-photo img{height:224px}
+      .bento{grid-template-columns:1.1fr 1fr 1fr;gap:16px}
+      .bento-photo{grid-column:1;grid-row:1/3;min-height:360px}
+      .bento-tile{padding:21px}
+      .bento-photo{padding:0}
+      .gallery{grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+      .gallery-card{padding:7px}
+      .gallery-card:nth-child(odd){transform:rotate(-1.5deg)}
+      .gallery-card:nth-child(even){transform:rotate(1.5deg);margin-top:18px}
+      .visit-grid{grid-template-columns:1.2fr .8fr;gap:55px}
+      .wordmark{padding-top:65px}
+      .footer-end{margin-top:30px}
+    }
+    @media(min-width:1100px){
+      .nav{left:34px;right:34px;padding-inline:21px}
+      .desktop-nav{gap:28px}
+      .hero-grid{gap:55px}
+      .hero-frame{margin-right:17px}
+      .hero-copy>p{font-size:16px}
+      .hero-actions .button{padding-inline:17px;gap:14px;min-height:54px}
+      .hero-bottom{margin-top:43px}
+      .story-grid{gap:95px}
+      .dish-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .menu-tabs button{padding-inline:23px}
+      .bento-tile h3{font-size:43px}
+      .visit-grid{gap:80px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation:none!important;transition:none!important}
+      .intro,.cursor{display:none!important}
+    }
+    @media print{
+      .nav,.mobile-nav,.intro,.cursor,.ticker,.hero,.story,.bento-section,.social,.visit,.menu-tabs,.michelada-form,.skip{display:none!important}
+      .wrap{width:100%}.menu-section{background:white;border:0;padding:0}.tab-panel[hidden]{display:block!important}.dish,.list-box,.michelada{box-shadow:none;break-inside:avoid}.dish-grid{display:block}.dish{margin-bottom:8px}.menu-notes{margin-top:10px}.michelada-photo{display:none}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Vai al contenuto</a>
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="sr-only">
+    <defs>
+      <symbol id="spark" viewBox="0 0 24 24"><path d="M12 0 14.3 9.7 24 12 14.3 14.3 12 24 9.7 14.3 0 12 9.7 9.7Z"/></symbol>
+      <symbol id="heart" viewBox="0 0 42 40"><path d="M21 37C15 33 2 24 2 13c0-5 4-9 9-9 4 0 8 2 10 6 2-4 6-6 10-6 5 0 9 4 9 9 0 11-13 20-19 24Z"/></symbol>
+      <symbol id="flame" viewBox="0 0 16 19"><path d="M8 1c.6 4.2 5.9 6.1 6.2 10.6.3 3.7-2.4 6.1-6.1 6.1S1.6 15.4 1.7 12c.1-2.9 1.8-4.6 3.2-5.7.1 1.6.6 2.3 1.2 2.7C7.3 7.4 7.7 4 8 1Z"/></symbol>
+      <symbol id="lime" viewBox="0 0 90 90"><circle cx="45" cy="45" r="40" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="45" cy="45" r="32" fill="none" stroke="currentColor" stroke-width="2"/><path d="M45 13v64M13 45h64M23 23l44 44m0-44L23 67" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    </defs>
+  </svg>
+  <div id="intro" class="intro" aria-hidden="true">
+    <div>
+      <div class="intro-mark"><svg class="ray" viewBox="0 0 100 100"><path d="M50 0v12m0 76v12M0 50h12m76 0h12M15 15l9 9m52 52 9 9M85 15l-9 9M24 76l-9 9M31 4l4 10m30 72 4 10M4 31l10 4m72 30 10 4M69 4l-4 10M35 86l-4 10M96 31l-10 4M14 65l-10 4"/></svg><img src="assets/logo-hd.jpg" alt="" width="1254" height="1254"></div>
+      <strong>Un beso direttamente dal Messico</strong>
+      <p>Preparando las tortillas…</p>
+    </div>
+  </div>
+  <div id="cursor" class="cursor" aria-hidden="true"></div>
+  <header id="nav" class="nav">
+    <a class="brand" href="#inizio" aria-label="La Taqueria Del Beso, inizio pagina">
+      <img src="assets/logo-hd.jpg" alt="" width="1254" height="1254">
+      <span class="brand-text">La Taqueria Del Beso<small>Torino · San Salvario</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Navigazione principale">
+      <a href="#spirito">El Espíritu</a><a href="#menu">Menu e prezzi</a><a href="#foto">Foto</a><a class="button red" href="#dove">Vieni a trovarci <i data-lucide="arrow-up-right" class="icon" aria-hidden="true"></i></a>
+    </nav>
+    <button type="button" id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" hidden>Menu <i data-lucide="menu" class="icon" aria-hidden="true"></i></button>
+  </header>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Navigazione mobile" hidden>
+    <a href="#spirito">El Espíritu del Beso</a><a href="#menu">Menu e prezzi</a><a href="#foto">La galleria</a><a class="button red" href="#dove">Dove siamo e orari <i data-lucide="map-pin" class="icon" aria-hidden="true"></i></a>
+  </nav>
+  <main id="main">
+    <section id="inizio" class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div class="hero-meta mini"><span>Taquería mexicana · Comida de calle</span><span>Torino, IT <svg class="spark" aria-hidden="true"><use href="#spark"/></svg></span></div>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="kicker"><svg class="spark" aria-hidden="true"><use href="#spark"/></svg> Dal Messico a San Salvario</p>
+            <h1 id="hero-title" class="display" aria-label="Un beso. Mucho sabor."><span class="hero-line">Un beso<span class="dot">.</span></span><span class="hero-line punch">Mucho</span><span class="hero-line punch">sabor.</span></h1>
+            <p>Tortillas di mais, carni cotte piano, lime e salse da dosare a piacere. Il primo morso ti porta in Messico. Il secondo è già un altro taco.</p>
+            <div class="hero-actions">
+              <a class="button magnetic" href="#menu">Scopri i nostri tacos <i class="icon" data-lucide="arrow-down-right" aria-hidden="true"></i></a>
+              <a class="button alt magnetic" href="#dove">Dove siamo e orari <i class="icon" data-lucide="map-pin" aria-hidden="true"></i></a>
+            </div>
+            <a class="hero-address" href="#dove"><i class="icon" data-lucide="map-pin" aria-hidden="true"></i>Piazza Madama Cristina 3/A, Torino</a>
+          </div>
+          <!-- tacos-trio.jpg: foto originale tacos.png, con i tre tacos indicati nella foto. -->
+          <figure class="hero-frame">
+            <div class="hero-pic" data-cursor="¡Órale!"><img id="hero-image" src="assets/tacos-trio.jpg" width="687" height="859" alt="Tre tacos di mais: barbacoa, cochinita e carnitas, con cipolla fresca e coriandolo" fetchpriority="high"></div>
+            <figcaption><span>01 / De la calle, con amor</span><span>Los tacos del Beso</span></figcaption>
+            <div class="sun-stamp" aria-label="México, Torino"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><path id="hero-ring" d="M50 13a37 37 0 1 1-.1 0"/></defs><text><textPath href="#hero-ring" textLength="229">MÉXICO · TORINO · MÉXICO · TORINO · </textPath></text></svg><svg aria-hidden="true"><use href="#heart"/></svg></div>
+          </figure>
+        </div>
+        <div class="hero-bottom mini"><span>Maíz · Lima · Corazón</span><a href="#spirito">El Espíritu del Beso <i class="icon" data-lucide="arrow-down" aria-hidden="true"></i></a></div>
+      </div>
+    </section>
+    <div class="ticker" id="ticker">
+      <div class="ribbon" aria-hidden="true"><div class="ribbon-track">
+        <div class="ribbon-group"><span>Autentica taquería mexicana</span><b>✦</b><span>Street tacos</span><b>✦</b><span>Cochinita pibil</span><b>✦</b><span>Barbacoa &amp; carnitas</span><b>✦</b></div>
+        <div class="ribbon-group"><span>Autentica taquería mexicana</span><b>✦</b><span>Street tacos</span><b>✦</b><span>Cochinita pibil</span><b>✦</b><span>Barbacoa &amp; carnitas</span><b>✦</b></div>
+      </div></div>
+      <div class="ribbon" aria-hidden="true"><div class="ribbon-track">
+        <div class="ribbon-group"><span>Crea la tua Michelada</span><b>✶</b><span>Piazza Madama Cristina Torino</span><b>✶</b><span>Comida chingona</span><b>✶</b><span>Mucho sabor</span><b>✶</b></div>
+        <div class="ribbon-group"><span>Crea la tua Michelada</span><b>✶</b><span>Piazza Madama Cristina Torino</span><b>✶</b><span>Comida chingona</span><b>✶</b><span>Mucho sabor</span><b>✶</b></div>
+      </div></div>
+      <button class="ticker-pause" id="ticker-pause" type="button" aria-pressed="false" hidden>Pausa fasce</button>
+    </div>
+    <section class="story slice" id="spirito" aria-labelledby="story-title">
+      <div class="wrap story-grid">
+        <div class="story-copy">
+          <div class="kicker"><svg class="spark" aria-hidden="true"><use href="#spark"/></svg> 01 / El Espíritu del Beso</div>
+          <h2 class="display" id="story-title">La calle<br>nel <span>cuore.</span></h2>
+          <p>Un taco si mangia con le mani. Si piega la tortilla, si aggiunge il lime, si sceglie la salsa. La prima regola è godersi il morso.</p>
+          <p>Partiamo dalla cucina di strada messicana: maiale marinato all’arancia per la cochinita, ossobuco cotto lentamente per la barbacoa, cipolla e coriandolo freschi. In Piazza Madama Cristina, con tutto il calore di una taquería.</p>
+          <a class="text-link" href="#menu">A ognuno il suo taco <i class="icon" data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="story-photos">
+          <figure class="story-primary" data-cursor="Assaggia"><div class="image-cut reveal"><img src="assets/tacos-da-condividere.jpg" width="686" height="856" loading="lazy" alt="Due mani tengono tacos appena farciti davanti a una parete colorata"></div><figcaption class="mini">San Salvario · Aquí se come rico</figcaption></figure>
+          <figure class="story-secondary" data-drift><img src="assets/salse.jpg" width="681" height="902" loading="lazy" alt="Ciotole di guacamole, pico de gallo, salsa verde e cipolla marinata"></figure>
+          <span class="story-stamp mini"><svg class="spark" aria-hidden="true"><use href="#spark"/></svg> México en Torino</span>
+        </div>
+      </div>
+    </section>
+    <section id="menu" class="menu-section slice" aria-labelledby="menu-title">
+      <div class="wrap">
+        <div class="section-intro">
+          <div><div class="kicker"><svg class="spark" aria-hidden="true"><use href="#spark"/></svg> 02 / El menú</div><h2 class="display" id="menu-title">La nostra <span class="menu-heading-mark">taquería.</span></h2></div>
+          <p>Un taco, quattro assaggi o qualcosa da bere: scegli cosa mettere sul tavolo.</p>
+        </div>
+        <div id="menu-tabs" class="menu-tabs" role="tablist" aria-label="Categorie del menu" hidden>
+          <button type="button" role="tab" id="tab-tacos" aria-controls="panel-tacos" aria-selected="true"><i data-lucide="flame" class="icon" aria-hidden="true"></i>Los Tacos</button>
+          <button type="button" role="tab" id="tab-antojitos" aria-controls="panel-antojitos" aria-selected="false" tabindex="-1"><i data-lucide="utensils" class="icon" aria-hidden="true"></i>Antojitos</button>
+          <button type="button" role="tab" id="tab-bebidas" aria-controls="panel-bebidas" aria-selected="false" tabindex="-1"><i data-lucide="cup-soda" class="icon" aria-hidden="true"></i>Bebidas</button>
+        </div>
+        <div id="panel-tacos" class="tab-panel" role="tabpanel" aria-labelledby="tab-tacos" tabindex="0">
+          <div class="panel-heading"><h3>Tacos de la calle</h3><p>Tortilla di mais</p></div>
+          <div class="dish-grid three"><article class="dish tilt" data-menu-item="tacos-1"><div class="dish-top"><div><h4>Tacos de Barbacoa de Res</h4><span class="dish-place">Tamaulipas</span></div><span class="dish-price">3,00 €</span></div><p>Ossobuco di manzo cotto lentamente al forno con adobo di peperoncini messicani non piccanti, cipolla e coriandolo.</p><div class="dish-bottom"><span class="dish-tag">Tradicional</span><span class="picante" title="Piccantezza indicativa: 1 su 3"><span class="sr-only">Piccantezza indicativa: 1 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="tacos-2"><div class="dish-top"><div><h4>Tacos de Cochinita Pibil</h4><span class="dish-place">Yucatán</span></div><span class="dish-price">3,00 €</span></div><p>Maiale marinato con spezie messicane e arancia, cotto in foglia di banana. Con cipolla di Tropea marinata e salsa di habanero.</p><div class="dish-bottom"><span class="dish-tag">Dal Yucatán</span><span class="picante" title="Piccantezza indicativa: 3 su 3"><span class="sr-only">Piccantezza indicativa: 3 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="tacos-3"><div class="dish-top"><div><h4>Tacos de Carnitas</h4><span class="dish-place">Michoacán</span></div><span class="dish-price">3,00 €</span></div><p>Confit di maiale cotto nel suo grasso, morbido e gustoso, con salsa pico de gallo.</p><div class="dish-bottom"><span class="dish-tag">Must try</span><span class="picante" title="Piccantezza indicativa: 1 su 3"><span class="sr-only">Piccantezza indicativa: 1 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="tacos-4"><div class="dish-top"><div><h4>Tacos de Suadero</h4><span class="dish-place">Città del Messico</span></div><span class="dish-price">3,00 €</span></div><p>Carne di manzo cotta lentamente, con lime, cipolla e coriandolo.</p><div class="dish-bottom"><span class="dish-tag">Tradicional</span><span class="picante" title="Piccantezza indicativa: 1 su 3"><span class="sr-only">Piccantezza indicativa: 1 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="tacos-5"><div class="dish-top"><div><h4>Tacos al Pastor</h4><span class="dish-place">Città del Messico</span></div><span class="dish-price">3,50 €</span></div><p>Maiale marinato con peperoncini non piccanti, coriandolo, cipolla, ananas e salsa di chipotle.</p><div class="dish-bottom"><span class="dish-tag">Il classico</span><span class="picante" title="Piccantezza indicativa: 2 su 3"><span class="sr-only">Piccantezza indicativa: 2 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article></div>
+          <div class="panel-heading"><h3>Le nostre degustazioni</h3><p>Quattro tacos, un giro di Messico</p></div>
+          <dl class="list-box"><div class="list-row" data-menu-item="degustazioni-1"><dt>4 tacos + bottiglia d’acqua</dt><dd>12,00 €</dd><dd class="list-description">Cochinita, carnitas, barbacoa e suadero.</dd></div>
+            <div class="list-row" data-menu-item="degustazioni-2"><dt>4 tacos + bibita (330 ml)</dt><dd>14,00 €</dd><dd class="list-description">Cochinita, carnitas, barbacoa e suadero.</dd></div>
+            <div class="list-row" data-menu-item="degustazioni-3"><dt>4 tacos + Corona o Jarrito</dt><dd>15,00 €</dd><dd class="list-description">Cochinita, carnitas, barbacoa e suadero.</dd></div></dl>
+        </div>
+        <div id="panel-antojitos" class="tab-panel" role="tabpanel" aria-labelledby="tab-antojitos" tabindex="0">
+          <div class="panel-heading"><h3>Per iniziare</h3><p>Con totopos</p></div><div class="dish-grid"><article class="dish tilt" data-menu-item="per_iniziare-1"><div class="dish-top"><div><h4>Guacamole</h4><span class="dish-place">Con totopos</span></div><span class="dish-price">8,00 €</span></div><p>Salsa di avocado, cipolla, pomodoro, coriandolo e lime.</p><div class="dish-bottom"><span class="dish-tag">Antojito</span><span class="picante" title="Piccantezza indicativa: 1 su 3"><span class="sr-only">Piccantezza indicativa: 1 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="per_iniziare-2"><div class="dish-top"><div><h4>Frijoles Puercos</h4><span class="dish-place">Con totopos</span></div><span class="dish-price">6,00 €</span></div><p>Fagioli borlotti tritati con bacon, chorizo, cipolla e chile chipotle.</p><div class="dish-bottom"><span class="dish-tag">Antojito</span><span class="picante" title="Piccantezza indicativa: 2 su 3"><span class="sr-only">Piccantezza indicativa: 2 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article></div>
+          <div class="panel-heading"><h3>Quesadillas e specialità</h3><p>Tortilla di grano, salvo dove indicato</p></div><div class="dish-grid three"><article class="dish tilt" data-menu-item="quesadillas-1"><div class="dish-top"><div><h4>Quesadilla de Queso</h4></div><span class="dish-price">4,00 €</span></div><p>Tortilla di grano ripiena di formaggio fuso.</p><div class="dish-bottom"><span class="dish-tag">Quesadilla</span><span class="picante" title="Piccantezza indicativa: 1 su 3"><span class="sr-only">Piccantezza indicativa: 1 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="quesadillas-2"><div class="dish-top"><div><h4>Quesadilla Vegetariana</h4></div><span class="dish-price">5,00 €</span></div><p>Tortilla di grano con formaggio fuso e verdura di stagione.</p><div class="dish-bottom"><span class="dish-tag">Vegetariana</span><span class="picante" title="Piccantezza indicativa: 1 su 3"><span class="sr-only">Piccantezza indicativa: 1 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="quesadillas-3"><div class="dish-top"><div><h4>Tacos de Choriqueso</h4></div><span class="dish-price">5,00 €</span></div><p>Salsiccia marinata con salsa di chile guajillo e spezie messicane, con formaggio fuso. Tortilla di mais o di grano.</p><div class="dish-bottom"><span class="dish-tag">Con guajillo</span><span class="picante" title="Piccantezza indicativa: 2 su 3"><span class="sr-only">Piccantezza indicativa: 2 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="quesadillas-4"><div class="dish-top"><div><h4>Tacos Gobernador</h4><span class="dish-place">Sinaloa</span></div><span class="dish-price">6,00 €</span></div><p>Mozzarella, gamberi, cipolla e peperoni verdi.</p><div class="dish-bottom"><span class="dish-tag">Da Sinaloa</span><span class="picante" title="Piccantezza indicativa: 1 su 3"><span class="sr-only">Piccantezza indicativa: 1 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="quesadillas-5"><div class="dish-top"><div><h4>Gringa de Pastor</h4></div><span class="dish-price">8,00 €</span></div><p>Tortilla di grano ripiena di formaggio e carne al pastor con ananas, coriandolo e cipolla.</p><div class="dish-bottom"><span class="dish-tag">Al pastor</span><span class="picante" title="Piccantezza indicativa: 2 su 3"><span class="sr-only">Piccantezza indicativa: 2 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="quesadillas-6"><div class="dish-top"><div><h4>Alambre de Pollo</h4></div><span class="dish-price">8,00 €</span></div><p>Pollo a cubetti con peperoni rossi e gialli, cipolla, bacon, chorizo e formaggio fuso.</p><div class="dish-bottom"><span class="dish-tag">Con pollo</span><span class="picante" title="Piccantezza indicativa: 2 su 3"><span class="sr-only">Piccantezza indicativa: 2 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article></div>
+          <div class="panel-heading"><h3>Flautas</h3><p>Tortilla di mais croccante</p></div><div class="dish-grid"><article class="dish tilt" data-menu-item="flautas-1"><div class="dish-top"><div><h4>Flauta de Papa</h4></div><span class="dish-price">4,00 €</span></div><p>Taco di mais fritto e croccante, ripieno di patata e bagnato in salsa verde, panna acida e formaggio fresco.</p><div class="dish-bottom"><span class="dish-tag">Croccante</span><span class="picante" title="Piccantezza indicativa: 2 su 3"><span class="sr-only">Piccantezza indicativa: 2 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article>
+            <article class="dish tilt" data-menu-item="flautas-2"><div class="dish-top"><div><h4>Flauta de Pollo</h4></div><span class="dish-price">5,00 €</span></div><p>Taco di mais fritto e croccante, ripieno di pollo e bagnato in salsa verde, panna acida e formaggio fresco.</p><div class="dish-bottom"><span class="dish-tag">Croccante</span><span class="picante" title="Piccantezza indicativa: 2 su 3"><span class="sr-only">Piccantezza indicativa: 2 su 3</span><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame" aria-hidden="true"><use href="#flame"/></svg><svg class="flame empty" aria-hidden="true"><use href="#flame"/></svg></span></div></article></div>
+        </div>
+        <div id="panel-bebidas" class="tab-panel" role="tabpanel" aria-labelledby="tab-bebidas" tabindex="0">
+          <article id="michelada" class="michelada">
+            <div class="michelada-copy"><div class="kicker"><svg class="spark" aria-hidden="true"><use href="#spark"/></svg> Al banco, a modo tuo</div><h3>Crea la tua Michelada</h3><p>Birra messicana, lime, sale e le salse che preferisci. Scegli l’intensità e chiedi al banco le opzioni e il prezzo.</p></div>
+            <div class="michelada-form" id="mix-options" hidden>
+              <fieldset><legend>Quanto piccante?</legend>
+                <div class="heat-options">
+                  <label><input class="sr-only" type="radio" name="heat" value="suave" checked><span>Suave</span></label>
+                  <label><input class="sr-only" type="radio" name="heat" value="medio"><span>Medio</span></label>
+                  <label><input class="sr-only" type="radio" name="heat" value="picante"><span>Picante</span></label>
+                </div>
+              </fieldset>
+              <p class="mix-result" id="mix-result" aria-live="polite">Chiedila suave: lime e sale, con le salse a parte.</p>
+            </div>
+            <figure class="michelada-photo"><img src="assets/michelada.jpg" width="1089" height="1444" alt="Michelada con lime e bordo di sale e peperoncino, immagine illustrativa" loading="lazy"><figcaption>Immagine illustrativa</figcaption></figure>
+            <svg class="lime-art" aria-hidden="true"><use href="#lime"/></svg>
+          </article>
+          <div class="drink-grid">
+            <div><div class="panel-heading"><h3>Y para tomar</h3><p>Bibite</p></div><dl class="list-box"><div class="list-row" data-menu-item="bibite-1"><dt>Acqua (50 cl)</dt><dd>1,50 €</dd></div>
+            <div class="list-row" data-menu-item="bibite-2"><dt>Bibita (33 cl)</dt><dd>2,50 €</dd></div>
+            <div class="list-row" data-menu-item="bibite-3"><dt>Jarrito (37 cl)</dt><dd>3,70 €</dd></div>
+            <div class="list-row" data-menu-item="bibite-4"><dt>Squirt (33 cl)</dt><dd>3,00 €</dd></div></dl></div>
+            <div><div class="panel-heading"><h3>Birre e specialità</h3><p>Dal listino</p></div><dl class="list-box"><div class="list-row" data-menu-item="birre-1"><dt>Clamao Sol</dt><dd>7,00 €</dd></div>
+            <div class="list-row" data-menu-item="birre-2"><dt>Corona (33 cl)</dt><dd>3,90 €</dd></div>
+            <div class="list-row" data-menu-item="birre-3"><dt>Modelo Especial (33 cl)</dt><dd>5,00 €</dd></div>
+            <div class="list-row" data-menu-item="birre-4"><dt>Negra Modelo (33 cl)</dt><dd>6,00 €</dd></div>
+            <div class="list-row" data-menu-item="birre-5"><dt>Carta Blanca (94 cl)</dt><dd>10,00 €</dd></div>
+            <div class="list-row" data-menu-item="birre-6"><dt>Victoria (1,2 l)</dt><dd>13,00 €</dd></div></dl></div>
+          </div>
+        </div>
+        <div class="menu-notes">
+          <p><strong>Beso Picante Meter:</strong> le fiammelle orientano tra sapori e salse, con intensità indicative. Per ingredienti, allergeni e piccantezza, chiedi allo staff.</p>
+          <p>Prezzi in euro. Piatti e disponibilità possono variare.</p>
+        </div>
+      </div>
+    </section>
+    <section class="bento-section slice" aria-labelledby="bento-title">
+      <div class="wrap">
+        <div class="section-intro"><div><div class="kicker"><svg class="spark" aria-hidden="true"><use href="#spark"/></svg> 03 / Los buenos motivos</div><h2 class="display" id="bento-title">Amore al <span class="menu-heading-mark">primo morso.</span></h2></div><p>C’è sempre un buon motivo per passare in piazza.</p></div>
+        <div class="bento">
+          <article class="bento-tile bento-photo reveal" data-cursor="¡Qué rico!"><img src="assets/tortilla-salsa.jpg" width="690" height="853" alt="Una tortilla farcita con formaggio fuso, salsa verde e uno spicchio di lime" loading="lazy"><div><h3>Tutto in una tortilla.</h3><p>Un po’ di lime, la tua salsa preferita e il morso è pronto.</p></div></article>
+          <article class="bento-tile tilt"><i data-lucide="flame" class="icon" aria-hidden="true"></i><h3>Ricette<br>di strada.</h3><p>Barbacoa, cochinita e carnitas: sapori che arrivano da regioni diverse del Messico.</p></article>
+          <article class="bento-tile color tilt"><i data-lucide="cup-soda" class="icon" aria-hidden="true"></i><h3>Michelada<br>a modo tuo.</h3><p>Lime, sale e salse: trova il tuo equilibrio tra fresco e piccante.</p><a class="text-link" href="#michelada" data-open-drinks>Vai alla Michelada <i class="icon" data-lucide="arrow-up-right" aria-hidden="true"></i></a></article>
+          <article class="bento-tile tilt"><i data-lucide="utensils" class="icon" aria-hidden="true"></i><h3>Un taco<br>tira l’altro.</h3><p>Assaggia un gusto, poi un altro. Per iniziare, i tacos del listino partono da 3 €.</p></article>
+          <article class="bento-tile tilt"><i data-lucide="map-pin" class="icon" aria-hidden="true"></i><h3>Cuore di<br>San Salvario.</h3><p>Ci trovi in Piazza Madama Cristina. Cerca l’insegna rossa con le lampadine.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="social slice" id="foto" aria-labelledby="social-title">
+      <div class="wrap">
+        <div class="section-intro"><div><div class="kicker"><svg class="spark" aria-hidden="true"><use href="#spark"/></svg> 04 / El Beso en fotos</div><h2 class="display" id="social-title">Cartoline <span>dal banco.</span></h2></div><p>Colori accesi, salse sul tavolo, tacos da condividere.</p></div>
+        <div class="social-links">
+          <a class="button" href="https://www.instagram.com/lataqueriadelbeso_torino" target="_blank" rel="noopener noreferrer"><i class="icon" data-lucide="instagram" aria-hidden="true"></i>@lataqueriadelbeso_torino <i class="icon" data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          <a class="button alt" href="https://www.facebook.com/p/La-Taqueria-Del-Beso-61579571963827/" target="_blank" rel="noopener noreferrer">Facebook <i class="icon" data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="gallery">
+          <a class="gallery-card" href="assets/tacos-trio.jpg" data-gallery data-caption="Los tacos: barbacoa, cochinita e carnitas" data-cursor="Scopri"><div class="image-cut reveal"><img src="assets/tacos-trio.jpg" width="687" height="859" loading="lazy" alt="Tre tacos serviti insieme"></div><span class="gallery-caption">Los tacos <i class="icon" data-lucide="expand" aria-hidden="true"></i></span></a>
+          <a class="gallery-card" href="assets/salse.jpg" data-gallery data-caption="Le salse da aggiungere al tuo taco" data-cursor="Scopri"><div class="image-cut reveal"><img src="assets/salse.jpg" width="681" height="902" loading="lazy" alt="Salse e condimenti in ciotole azzurre"></div><span class="gallery-caption">Las salsas <i class="icon" data-lucide="expand" aria-hidden="true"></i></span></a>
+          <a class="gallery-card" href="assets/tortilla-salsa.jpg" data-gallery data-caption="Tortilla farcita, salsa verde e lime" data-cursor="Scopri"><div class="image-cut reveal"><img src="assets/tortilla-salsa.jpg" width="690" height="853" loading="lazy" alt="Una mano aggiunge salsa verde su una tortilla farcita"></div><span class="gallery-caption">Un po’ di salsa <i class="icon" data-lucide="expand" aria-hidden="true"></i></span></a>
+          <a class="gallery-card" href="assets/tacos-da-condividere.jpg" data-gallery data-caption="Due tacos da condividere" data-cursor="Scopri"><div class="image-cut reveal"><img src="assets/tacos-da-condividere.jpg" width="686" height="856" loading="lazy" alt="Due tacos tenuti in mano"></div><span class="gallery-caption">Da condividere <i class="icon" data-lucide="expand" aria-hidden="true"></i></span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="visit slice" id="dove" aria-labelledby="visit-title">
+    <div class="wrap">
+      <div class="visit-grid">
+        <div class="visit-copy"><div class="kicker"><svg class="spark" aria-hidden="true"><use href="#spark"/></svg> 05 / Nos vemos en la plaza</div><h2 class="display" id="visit-title">Ci vediamo<br><span>in piazza.</span></h2><p>Passa per pranzo o cena. Siamo nel cuore di San Salvario, sotto l’insegna rossa.</p><a class="button magnetic" href="https://www.google.com/maps/search/?api=1&amp;query=La+Taqueria+Del+Beso+Piazza+Madama+Cristina+3%2FA+Torino" target="_blank" rel="noopener noreferrer">Apri le indicazioni <i class="icon" data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+        <div>
+          <div class="visit-detail"><div class="mini"><i class="icon" data-lucide="map-pin" aria-hidden="true"></i>Dove siamo</div><address>Piazza Madama Cristina, 3/A<small>10125 Torino TO · San Salvario</small></address></div>
+          <div class="visit-detail"><div class="mini"><i class="icon" data-lucide="clock-3" aria-hidden="true"></i>Orari</div><dl class="hours"><dt>Mercoledì–Domenica</dt><dd>12:00–15:00<br>19:00–22:00</dd><dt>Lunedì–Martedì</dt><dd>Chiuso</dd></dl></div>
+          <div class="visit-detail"><div class="mini"><i class="icon" data-lucide="message-circle" aria-hidden="true"></i>Restiamo in contatto</div><a class="text-link" href="https://www.instagram.com/lataqueriadelbeso_torino" target="_blank" rel="noopener noreferrer">Instagram <i class="icon" data-lucide="arrow-up-right" aria-hidden="true"></i></a><a class="text-link" href="https://www.facebook.com/p/La-Taqueria-Del-Beso-61579571963827/" target="_blank" rel="noopener noreferrer">Facebook <i class="icon" data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+        </div>
+      </div>
+      <div class="wordmark" aria-hidden="true">Taquería <svg viewBox="0 0 42 40"><use href="#heart"/></svg></div>
+      <div class="footer-end"><span>© <span id="year">2026</span> La Taqueria Del Beso · Torino</span><a href="#inizio">Torna su ↑</a></div>
+    </div>
+  </footer>
+  <dialog id="gallery-dialog" aria-labelledby="gallery-title">
+    <div class="dialog-bar"><h2 id="gallery-title">El Beso en fotos</h2><button type="button" id="gallery-close" aria-label="Chiudi la foto">×</button></div>
+    <img id="gallery-expanded" src="assets/tacos-trio.jpg" alt="" width="687" height="859">
+    <div class="dialog-nav"><button type="button" id="gallery-prev" aria-label="Foto precedente">←</button><span id="gallery-count" aria-live="polite"></span><button type="button" id="gallery-next" aria-label="Foto successiva">→</button></div>
+  </dialog>
+  <script>
+    (() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const $$ = selector => [...document.querySelectorAll(selector)];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const precise = matchMedia('(hover: hover) and (pointer: fine) and (min-width: 800px)');
+
+  // The panels and every price are in HTML. JavaScript only adds filtering.
+  const tabs = $$('#menu-tabs [role="tab"]');
+  function setTab(tab, focus = false) {
+    if (!tab) return;
+    tabs.forEach(item => {
+      const selected = item === tab;
+      item.setAttribute('aria-selected', String(selected));
+      item.tabIndex = selected ? 0 : -1;
+      $(item.getAttribute('aria-controls')).hidden = !selected;
+    });
+    if (focus) tab.focus();
+    const panel = $(tab.getAttribute('aria-controls'));
+    if (window.gsap && !reduced.matches) {
+      window.gsap.fromTo(panel, { y: 7, opacity: .75 }, { y: 0, opacity: 1, duration: .32, overwrite: true, clearProps: 'opacity,transform' });
+    }
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+  }
+  function tabFromLocation() {
+    if (['#michelada', '#panel-bebidas', '#tab-bebidas'].includes(location.hash)) return $('tab-bebidas');
+    if (['#panel-antojitos', '#tab-antojitos'].includes(location.hash)) return $('tab-antojitos');
+    return tabs[0];
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => setTab(tab));
+    tab.addEventListener('keydown', event => {
+      const keys = { ArrowRight: (index + 1) % tabs.length, ArrowLeft: (index + tabs.length - 1) % tabs.length, Home: 0, End: tabs.length - 1 };
+      if (!Object.hasOwn(keys, event.key)) return;
+      event.preventDefault();
+      setTab(tabs[keys[event.key]], true);
+    });
+  });
+  $('menu-tabs').hidden = false;
+  setTab(tabFromLocation());
+  window.addEventListener('hashchange', () => {
+    if (/^#(michelada|panel-|tab-)/.test(location.hash)) setTab(tabFromLocation());
+  });
+  $$('[data-open-drinks]').forEach(link => link.addEventListener('click', () => setTab($('tab-bebidas'))));
+
+  const recipes = {
+    suave: 'Chiedila suave: lime e sale, con le salse a parte.',
+    medio: 'Chiedila media: lime, sale e un tocco di salsa.',
+    picante: 'Chiedila picante: lime, sale e una salsa più intensa.'
+  };
+  $('mix-options').hidden = false;
+  $$('input[name="heat"]').forEach(input => {
+    input.addEventListener('change', () => { if (input.checked) $('mix-result').textContent = recipes[input.value]; });
+  });
+
+  const toggle = $('nav-toggle'), mobile = $('mobile-nav'), nav = $('nav');
+  toggle.hidden = false;
+  function setNavigation(open) {
+    mobile.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+  toggle.addEventListener('click', () => setNavigation(mobile.hidden));
+  mobile.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setNavigation(false)));
+  document.addEventListener('pointerdown', event => {
+    if (!mobile.hidden && !mobile.contains(event.target) && !nav.contains(event.target)) setNavigation(false);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !mobile.hidden) {
+      setNavigation(false);
+      toggle.focus();
+    }
+  });
+  const desktop = matchMedia('(min-width: 800px)');
+  desktop.addEventListener('change', event => { if (event.matches) setNavigation(false); });
+  let frame = null;
+  function compactNav() {
+    nav.classList.toggle('compact', scrollY > 48);
+    frame = null;
+  }
+  window.addEventListener('scroll', () => {
+    if (frame === null) frame = requestAnimationFrame(compactNav);
+  }, { passive: true });
+  compactNav();
+  $('year').textContent = new Date().getFullYear();
+
+  const pause = $('ticker-pause');
+  pause.hidden = reduced.matches;
+  reduced.addEventListener('change', event => { pause.hidden = event.matches; });
+  pause.addEventListener('click', () => {
+    const paused = pause.getAttribute('aria-pressed') !== 'true';
+    pause.setAttribute('aria-pressed', String(paused));
+    pause.textContent = paused ? 'Riprendi fasce' : 'Pausa fasce';
+    $('ticker').classList.toggle('is-paused', paused);
+  });
+
+  const gallery = $$('[data-gallery]'), dialog = $('gallery-dialog');
+  if (typeof dialog.showModal === 'function') {
+    let index = 0;
+    const showImage = next => {
+      index = (next + gallery.length) % gallery.length;
+      const link = gallery[index], photo = $('gallery-expanded');
+      photo.src = link.getAttribute('href');
+      photo.alt = link.querySelector('img').alt;
+      $('gallery-title').textContent = link.dataset.caption;
+      $('gallery-count').textContent = (index + 1) + ' / ' + gallery.length;
+    };
+    gallery.forEach((link, i) => link.addEventListener('click', event => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      showImage(i);
+      dialog.showModal();
+      $('gallery-close').focus();
+    }));
+    $('gallery-close').addEventListener('click', () => dialog.close());
+    $('gallery-prev').addEventListener('click', () => showImage(index - 1));
+    $('gallery-next').addEventListener('click', () => showImage(index + 1));
+    dialog.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        showImage(index + (event.key === 'ArrowLeft' ? -1 : 1));
+      }
+    });
+    dialog.addEventListener('click', event => {
+      if (event.target !== dialog) return;
+      const r = dialog.getBoundingClientRect();
+      if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close();
+    });
+  }
+
+  const cursor = $('cursor');
+  const hideCursor = () => cursor.classList.remove('on');
+  const canAnimatePointer = () => precise.matches && !reduced.matches;
+  $$('[data-cursor]').forEach(target => {
+    target.addEventListener('pointermove', event => {
+      if (!canAnimatePointer() || event.pointerType === 'touch') { hideCursor(); return; }
+      cursor.textContent = target.dataset.cursor;
+      cursor.style.left = event.clientX + 'px';
+      cursor.style.top = event.clientY + 'px';
+      cursor.classList.add('on');
+    }, { passive: true });
+    target.addEventListener('pointerleave', hideCursor);
+    target.addEventListener('pointerdown', hideCursor);
+  });
+  precise.addEventListener('change', hideCursor);
+  reduced.addEventListener('change', hideCursor);
+  $$('.tilt,.magnetic').forEach(target => {
+    const isTilt = target.classList.contains('tilt');
+    target.addEventListener('pointermove', event => {
+      if (!canAnimatePointer() || event.pointerType === 'touch') return;
+      const rect = target.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - .5;
+      const y = (event.clientY - rect.top) / rect.height - .5;
+      target.style.transform = isTilt
+        ? 'perspective(900px) rotateX(' + (-4 * y) + 'deg) rotateY(' + (5 * x) + 'deg)'
+        : 'translate(' + (7 * x) + 'px,' + (6 * y) + 'px)';
+    }, { passive: true });
+    target.addEventListener('pointerleave', () => { target.style.transform = ''; });
+  });
+
+  const intro = $('intro');
+  const started = performance.now();
+  let sawIntro = false;
+  try {
+    sawIntro = sessionStorage.getItem('taqueria-intro') === '1';
+    sessionStorage.setItem('taqueria-intro', '1');
+  } catch {}
+  if (!sawIntro && !location.hash && !reduced.matches) intro.classList.add('active');
+  const removeIntro = () => intro.classList.remove('active');
+  intro.addEventListener('animationend', event => {
+    if (event.target === intro) removeIntro();
+  });
+  const introTimer = window.setTimeout(removeIntro, 3000);
+  document.addEventListener('DOMContentLoaded', () => {
+    const gsap = window.gsap;
+    if (window.lucide) window.lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+    if (!gsap || reduced.matches) return;
+    if (intro.classList.contains('active')) {
+      const delay = Math.max(0, 1.60 - (performance.now() - started) / 1000);
+      intro.style.animation = 'none';
+      const mask = 'radial-gradient(circle at 50% 50%, transparent var(--aperture), #000 calc(var(--aperture) + 1px))';
+      intro.style.setProperty('--aperture', '0%');
+      intro.style.maskImage = mask;
+      intro.style.webkitMaskImage = mask;
+      gsap.to(intro, { '--aperture': '145%', opacity: 0, delay, duration: .60, ease: 'power3.inOut', onComplete: () => { window.clearTimeout(introTimer); removeIntro(); } });
+      gsap.fromTo('#hero-image', { scale: 1.14 }, { scale: 1, delay, duration: 1.15, ease: 'power2.out', clearProps: 'transform' });
+      gsap.fromTo('.hero-line', { y: 22, opacity: .72 }, { y: 0, opacity: 1, delay: delay + .12, duration: .60, stagger: .075, ease: 'power2.out', clearProps: 'opacity,transform' });
+    }
+    if (window.ScrollTrigger) {
+      gsap.registerPlugin(window.ScrollTrigger);
+      gsap.utils.toArray('.reveal').forEach(el => gsap.fromTo(el, { clipPath: 'inset(0 0 14% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: .75, ease: 'power2.out', clearProps: 'clipPath', scrollTrigger: { trigger: el, start: 'top 94%', once: true } }));
+      const mm = gsap.matchMedia();
+      mm.add('(min-width: 800px) and (prefers-reduced-motion: no-preference)', () => {
+        gsap.fromTo('[data-drift]', { y: 10 }, { y: -19, ease: 'none', scrollTrigger: { trigger: '.story', start: 'top bottom', end: 'bottom top', scrub: .8 } });
+      });
+    }
+  }, { once: true });
+})();
+  </script>
+</body>
+</html>
